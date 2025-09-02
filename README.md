@@ -1,4 +1,4 @@
-# Session ID - Session Title
+# AI160 - Build Your Own AI Agent-Based Solution with the Generative AI Hub
 
 ## Description
 
