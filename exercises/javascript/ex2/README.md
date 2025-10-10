@@ -99,8 +99,6 @@ Navigate to http://localhost:3002/ and test the complete flow:
 3. Modify the draft email as needed
 4. Finally, click the **Send** button to create a note
 
-![email popup](./images/email-popup.png)
-
 You should see a success notification confirming the email was sent.
 
 ## Step 5: Verify Note Creation in the Logs
