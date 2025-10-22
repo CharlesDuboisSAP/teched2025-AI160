@@ -1,7 +1,7 @@
 logging:
   level:
     root: INFO
-    org.apache.hc.client5.http.wire: INFO
+    org.apache.hc.client5.http.wire: DEBUG
     com.sap.demo: DEBUG
 
 app:
