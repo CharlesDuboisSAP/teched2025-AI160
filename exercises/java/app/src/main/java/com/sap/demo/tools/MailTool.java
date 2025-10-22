@@ -1,17 +1,19 @@
 package com.sap.demo.tools;
 
-import com.sap.demo.ui.PurchaseOrderMonitoringService;
+import com.sap.demo.Application.UiHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
+
+import java.util.Optional;
 
 /** Tool for mails. */
 @RequiredArgsConstructor
 @Slf4j
 public class MailTool {
 
-  private final PurchaseOrderMonitoringService monitoringService;
+  private final UiHandler ui;
 
   /**
    * Request class for the sendMailTool
@@ -25,19 +27,18 @@ public class MailTool {
   /** Tool to send a mail. */
   @Tool(description = "Send an email to satisfy the customer and close the escalation.")
   public String sendMail(@ToolParam Request mailRequest) {
-    var response =
-        monitoringService.promptUser(
-            "Confirm email",
-            "Please confirm sending the following email to %s with the subject %s"
-                .formatted(mailRequest.address(), mailRequest.subject()),
-            mailRequest.text());
+    String promptTitle = "Confirm email";
+
+    String promptText = "Please confirm sending the following email to %s with the subject %s"
+        .formatted(mailRequest.address(), mailRequest.subject());
+
+    Optional<String> response = ui.promptUser(promptTitle, promptText, mailRequest.text());
 
     if (response.isPresent()) {
-      log.debug(
-          "Email sent successfully: To{}, Subject{}, Body{}%n",
-          mailRequest.address(), mailRequest.subject(), response.get());
+      String msg = "Email sent successfully! To: {}; Subject: {}; Body: {}%n";
+      log.debug(msg, mailRequest.address(), mailRequest.subject(), response.get());
 
-      monitoringService.notifySubscribers("Email sent to %s".formatted(mailRequest.address()));
+      ui.notify("Email sent to %s".formatted(mailRequest.address()));
       return "Email sent";
     }
     return "Email not sent";

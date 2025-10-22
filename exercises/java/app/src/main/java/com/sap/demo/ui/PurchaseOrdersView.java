@@ -30,8 +30,6 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
@@ -127,15 +125,17 @@ public class PurchaseOrdersView extends VerticalLayout {
     itemsGrid
         .addColumn(PurchaseOrderItem::getPurchaseOrder)
         .setHeader("Purchase Order")
-        .setWidth("7rem");
+        .setWidth("9rem")
+        .setFlexGrow(0);
     itemsGrid
         .addColumn(PurchaseOrderItem::getPurchaseOrderItem)
-        .setHeader("Item-Nr.")
-        .setWidth("10rem");
+        .setHeader("Id")
+        .setWidth("5rem")
+        .setFlexGrow(0);
     itemsGrid
         .addColumn(PurchaseOrderItem::getPurchaseOrderItemText)
         .setHeader("Item")
-        .setWidth("25rem");
+        .setFlexGrow(2);
     itemsGrid
         .addColumn(
             i -> {
@@ -143,15 +143,17 @@ public class PurchaseOrdersView extends VerticalLayout {
               return i.getOrderQuantity().intValueExact();
             })
         .setHeader("Quantity")
-        .setWidth("7rem");
+        .setWidth("7rem")
+        .setFlexGrow(0);
     itemsGrid
         .addColumn(PurchaseOrderItem::getDeliveryAddressCityName)
         .setHeader("Delivery Address")
-        .setWidth("15rem");
+        .setFlexGrow(1);
     itemsGrid
         .addColumn(new ComponentRenderer<>(Span::new, purchaseOrderDate))
         .setHeader("Date")
-        .setWidth("10rem");
+        .setWidth("10rem")
+        .setFlexGrow(0);
     itemsGrid
         .addColumn(new ComponentRenderer<>(item -> {
           String text = item.getPurchaseOrderItemNoteIfPresent()
@@ -170,7 +172,7 @@ public class PurchaseOrdersView extends VerticalLayout {
           return span;
         }))
         .setHeader("Note")
-        .setWidth("25rem");
+        .setFlexGrow(1);
     itemsGrid
         .addComponentColumn(
             purchaseOrderItem -> {
@@ -234,6 +236,7 @@ public class PurchaseOrdersView extends VerticalLayout {
               return actionButton;
             })
         .setHeader("Actions")
+        .setWidth("9rem")
         .setFlexGrow(0);
 
     itemsGrid.setItems(readings);

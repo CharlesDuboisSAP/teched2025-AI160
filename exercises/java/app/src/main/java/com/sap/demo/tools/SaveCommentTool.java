@@ -1,7 +1,7 @@
 package com.sap.demo.tools;
 
 import com.sap.cloud.sdk.cloudplatform.connectivity.DefaultHttpDestination;
-import com.sap.demo.ui.PurchaseOrderMonitoringService;
+import com.sap.demo.Application.UiHandler;
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderItem;
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderItemNote;
 import com.sap.generated.services.DefaultPurchaseOrderService;
@@ -16,7 +16,7 @@ import org.springframework.ai.tool.annotation.ToolParam;
 public class SaveCommentTool {
 
   static final String PURCHASE_ORDER_URL = "http://localhost:8080/sap/opu/odata/sap";
-  private final PurchaseOrderMonitoringService monitoringService;
+  private final UiHandler ui;
 
   /**
    * Request class for the SaveNoteTool
@@ -45,6 +45,6 @@ public class SaveCommentTool {
         request.purchaseOrderItem().getPurchaseOrderItem(),
         request.comment());
 
-    monitoringService.notifySubscribers("Purchase Order Item updated.");
+    ui.notify("Purchase Order Item updated.");
   }
 }

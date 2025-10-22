@@ -17,6 +17,8 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
+import java.util.Optional;
+
 @SpringBootApplication
 @EnableScheduling
 @EnableCaching
@@ -55,5 +57,10 @@ public class Application {
       executor.initialize();
       return executor;
     }
+  }
+
+  public interface UiHandler {
+    Optional<String> promptUser(String title, String message, String initialInput);
+    void notify(String s);
   }
 }

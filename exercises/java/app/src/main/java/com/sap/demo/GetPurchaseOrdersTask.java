@@ -1,23 +1,23 @@
 package com.sap.demo;
 
-import com.sap.ai.sdk.orchestration.OrchestrationAiModel;
 import com.sap.ai.sdk.orchestration.OrchestrationModuleConfig;
 import com.sap.ai.sdk.orchestration.spring.OrchestrationChatModel;
 import com.sap.ai.sdk.orchestration.spring.OrchestrationChatOptions;
 import com.sap.demo.tools.ReadPurchaseOrdersTool;
-import com.sap.demo.tools.SaveCommentTool;
-import com.sap.demo.ui.PurchaseOrderMonitoringService;
+import com.sap.demo.Application.UiHandler;
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderItem;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.ChatClient.ChatClientRequestSpec;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
+
+import static com.sap.ai.sdk.orchestration.OrchestrationAiModel.CLAUDE_4_SONNET;
 
 @Component
 @RequiredArgsConstructor
@@ -39,14 +39,12 @@ public class GetPurchaseOrdersTask {
     """;
 
   @Cacheable("purchaseOrders")
-  public List<PurchaseOrderItem> getPurchaseOrderItems(
-      String userQuery, PurchaseOrderMonitoringService monitoringService) {
+  public List<PurchaseOrderItem> getPurchaseOrderItems(String userQuery, UiHandler ui) {
     // ---------------------------------------- EXERCISE 1 ----------------------------------------
     // YOUR CODE START
     /*
-    OrchestrationModuleConfig config =
-        new OrchestrationModuleConfig().withLlmConfig(OrchestrationAiModel.CLAUDE_4_SONNET);
-    OrchestrationChatOptions options = new OrchestrationChatOptions(config);
+    OrchestrationModuleConfig conf = new OrchestrationModuleConfig().withLlmConfig(CLAUDE_4_SONNET);
+    OrchestrationChatOptions options = new OrchestrationChatOptions(conf);
     ChatClient chatClient = ChatClient.create(new OrchestrationChatModel());
 
     UserMessage userMessage = new UserMessage(userQuery);
@@ -68,14 +66,13 @@ public class GetPurchaseOrdersTask {
      List<PurchaseOrderItem> result = new ReadPurchaseOrdersTool().getAllPurchaseOrders();
     // ---------------------------------------- EXERCISE 1 ----------------------------------------
 
-    writeNotification(result, monitoringService);
+    writeNotification(result, ui);
     return result;
   }
 
-  private void writeNotification(
-      List<PurchaseOrderItem> result, PurchaseOrderMonitoringService monitoringService) {
-    String message =
-        "Found %d Purchase Order items for the given LLM prompt.".formatted(result.size());
-    monitoringService.notifySubscribers(message);
+  private void writeNotification(List<PurchaseOrderItem> result, UiHandler ui) {
+    int n = result==null ? 0 : result.size();
+    String message = "Found %d Purchase Order items for the given LLM prompt.".formatted(n);
+    ui.notify(message);
   }
 }

@@ -8,7 +8,7 @@ import com.sap.demo.tools.AskUserTool;
 import com.sap.demo.tools.DateTimeTool;
 import com.sap.demo.tools.MailTool;
 import com.sap.demo.tools.SaveCommentTool;
-import com.sap.demo.ui.PurchaseOrderMonitoringService;
+import com.sap.demo.Application.UiHandler;
 import com.sap.demo.ui.PurchaseOrderMonitoringService.EscalationOutcome;
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderItem;
 import org.springframework.ai.chat.client.ChatClient;
@@ -35,9 +35,7 @@ public class EscalateTask {
     - Before using the mailTool, always ask the user via the askUserTool whether you should draft an e-mail. Stick as close as possible to what the user answers.
     """;
 
-  public EscalationOutcome resolveEscalation(
-      PurchaseOrderItem selectedPurchaseOrderItem,
-      PurchaseOrderMonitoringService monitoringService) {
+  public EscalationOutcome resolveEscalation(PurchaseOrderItem item, UiHandler ui) {
     // ---------------------------------------- EXERCISE 2 ----------------------------------------
     OrchestrationModuleConfig config =
         new OrchestrationModuleConfig().withLlmConfig(OrchestrationAiModel.CLAUDE_4_SONNET);
@@ -50,11 +48,11 @@ public class EscalateTask {
     /*
     String userQuery =
         "Please escalate for the following purchaseOrderItem %s, send email and save a note"
-            .formatted(selectedPurchaseOrderItem.toString());
+            .formatted(item.toString());
 
-    AskUserTool askUserTool = new AskUserTool(monitoringService);
-    MailTool mailTool = new MailTool(monitoringService);
-    SaveCommentTool saveCommentTool = new SaveCommentTool(monitoringService);
+    AskUserTool askUserTool = new AskUserTool(ui);
+    MailTool mailTool = new MailTool(ui);
+    SaveCommentTool saveCommentTool = new SaveCommentTool(ui);
     DateTimeTool dateTimeTool = new DateTimeTool();
 
     EscalationOutcome result =

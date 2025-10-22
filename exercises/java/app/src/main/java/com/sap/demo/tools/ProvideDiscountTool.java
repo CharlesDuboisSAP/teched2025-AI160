@@ -1,6 +1,6 @@
 package com.sap.demo.tools;
 
-import com.sap.demo.ui.PurchaseOrderMonitoringService;
+import com.sap.demo.Application.UiHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
@@ -11,7 +11,7 @@ import org.springframework.ai.tool.annotation.ToolParam;
 @Slf4j
 public class ProvideDiscountTool {
 
-  private final PurchaseOrderMonitoringService monitoringService;
+  private final UiHandler ui;
 
   /**
    * Request class
@@ -25,7 +25,6 @@ public class ProvideDiscountTool {
   public void discountPurchase(@ToolParam Request request) {
     log.debug("Discount provided successfully: Percentage{}%n", request.percentageAmount());
 
-    monitoringService.notifySubscribers(
-        "Discount of %d%% provided".formatted(request.percentageAmount()));
+    ui.notify("Discount of %d%% provided".formatted(request.percentageAmount()));
   }
 }
