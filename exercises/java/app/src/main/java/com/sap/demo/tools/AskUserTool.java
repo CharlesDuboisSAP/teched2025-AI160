@@ -1,6 +1,6 @@
 package com.sap.demo.tools;
 
-import com.sap.demo.ui.PurchaseOrderMonitoringService;
+import com.sap.demo.Application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
@@ -9,7 +9,7 @@ import org.springframework.ai.tool.annotation.ToolParam;
 @RequiredArgsConstructor
 public class AskUserTool {
 
-  private final PurchaseOrderMonitoringService monitoringService;
+  private final Application.UiHandler handler;
 
   /**
    * Request class for the AskUserTool
@@ -28,7 +28,7 @@ public class AskUserTool {
       description =
           "Only way to interact with the user. Ask a brief question, provide an expected answer. The purpose is the title and should start with a verb.")
   public String askUser(@ToolParam final Request askUserRequest) {
-    return monitoringService
+    return handler
         .promptUser(
             askUserRequest.purpose(),
             askUserRequest.briefQuestion(),

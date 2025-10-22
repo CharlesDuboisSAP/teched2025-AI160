@@ -1,5 +1,6 @@
 package com.sap.demo.ui;
 
+import com.sap.demo.Application.UiHandler;
 import com.sap.demo.EscalateTask;
 import com.sap.demo.GetPurchaseOrdersTask;
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderItem;
@@ -17,10 +18,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PurchaseOrderMonitoringService {
+public class PurchaseOrderMonitoringService implements UiHandler {
 
   private final GetPurchaseOrdersTask purchaseOrderTool;
 
@@ -82,6 +84,7 @@ public class PurchaseOrderMonitoringService {
   }
 
   @Async
+  @Override
   public Optional<String> promptUser(String title, String message, String initialInput) {
     List<Callable<Optional<String>>> tasks = new ArrayList<>();
     ExecutorService executor = Executors.newFixedThreadPool(subscribers.size());
@@ -110,7 +113,8 @@ public class PurchaseOrderMonitoringService {
     }
   }
 
-  public void notifySubscribers(String s) {
+  @Override
+  public void notify(String s) {
     for (PurchaseOrdersView subscriber : new ArrayList<>(subscribers)) {
       try {
         subscriber.showNotification(s);
