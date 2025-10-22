@@ -20,7 +20,7 @@
         <vaadin.version>24.8.0</vaadin.version>
         <cloud-sdk.version>5.22.0</cloud-sdk.version>
         <maven.compiler.proc>full</maven.compiler.proc>
-        <orchestration.version>1.12.0-SNAPSHOT</orchestration.version>
+        <orchestration.version>1.12.0</orchestration.version>
         <json.version>20240303</json.version>
     </properties>
 
