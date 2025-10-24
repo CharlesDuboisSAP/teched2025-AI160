@@ -7,37 +7,20 @@ package com.sap.generated.namespaces.purchaseorder;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.sap.cloud.sdk.cloudplatform.connectivity.Destination;
-import com.sap.cloud.sdk.datamodel.odata.client.exception.ODataException;
 import com.sap.cloud.sdk.datamodel.odata.helper.VdmEntity;
 import com.sap.cloud.sdk.s4hana.datamodel.odata.adapter.ODataField;
-import com.sap.cloud.sdk.s4hana.datamodel.odata.annotation.Key;
 import com.sap.cloud.sdk.typeconverter.TypeConverter;
 import com.sap.generated.namespaces.purchaseorder.field.PurchaseOrderScheduleLineField;
-import com.sap.generated.namespaces.purchaseorder.link.PurchaseOrderScheduleLineLink;
 import com.sap.generated.namespaces.purchaseorder.selectable.PurchaseOrderScheduleLineSelectable;
 import com.sap.generated.services.PurchaseOrderService;
-import io.vavr.control.Option;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 import java.util.Map;
 
 
@@ -45,12 +28,6 @@ import java.util.Map;
  * Schedule Lines<p></p><p>Original entity name from the Odata EDM: <b>A_PurchaseOrderScheduleLineType</b></p>
  * 
  */
-@Builder
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(doNotUseGetters = true, callSuper = true)
-@EqualsAndHashCode(doNotUseGetters = true, callSuper = true)
 @JsonAdapter(com.sap.cloud.sdk.s4hana.datamodel.odata.adapter.ODataVdmEntityAdapterFactory.class)
 public class PurchaseOrderScheduleLine
     extends VdmEntity<PurchaseOrderScheduleLine>
@@ -80,6 +57,17 @@ public class PurchaseOrderScheduleLine
      * 
      */
     public final static PurchaseOrderScheduleLineField<LocalDateTime> SCHEDULE_LINE_DELIVERY_DATE = new PurchaseOrderScheduleLineField<LocalDateTime>("ScheduleLineDeliveryDate");
+
+    public PurchaseOrderScheduleLine(@Nullable LocalDateTime scheduleLineDeliveryDate) {
+        this.scheduleLineDeliveryDate = scheduleLineDeliveryDate;
+    }
+
+    public PurchaseOrderScheduleLine() {
+    }
+
+    public static PurchaseOrderScheduleLineBuilder builder() {
+        return new PurchaseOrderScheduleLineBuilder();
+    }
 
     @Nonnull
     @Override
@@ -224,11 +212,64 @@ public class PurchaseOrderScheduleLine
         return cloudSdkValues;
     }
 
+    @Nullable
+    public LocalDateTime getScheduleLineDeliveryDate() {
+        return this.scheduleLineDeliveryDate;
+    }
+
+    public boolean equals(final Object o) {
+        if (o == this) return true;
+        if (!(o instanceof PurchaseOrderScheduleLine)) return false;
+        final PurchaseOrderScheduleLine other = (PurchaseOrderScheduleLine) o;
+        if (!other.canEqual((Object) this)) return false;
+        if (!super.equals(o)) return false;
+        final Object this$scheduleLineDeliveryDate = this.scheduleLineDeliveryDate;
+        final Object other$scheduleLineDeliveryDate = other.scheduleLineDeliveryDate;
+        if (this$scheduleLineDeliveryDate == null ? other$scheduleLineDeliveryDate != null : !this$scheduleLineDeliveryDate.equals(other$scheduleLineDeliveryDate))
+            return false;
+        return true;
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof PurchaseOrderScheduleLine;
+    }
+
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = super.hashCode();
+        final Object $scheduleLineDeliveryDate = this.scheduleLineDeliveryDate;
+        result = result * PRIME + ($scheduleLineDeliveryDate == null ? 43 : $scheduleLineDeliveryDate.hashCode());
+        return result;
+    }
+
+    public String toString() {
+        return "PurchaseOrderScheduleLine(super=" + super.toString() + ", scheduleLineDeliveryDate=" + this.scheduleLineDeliveryDate + ")";
+    }
+
     /**
      * Helper class to allow for fluent creation of PurchaseOrderScheduleLine instances.
      * 
      */
     public final static class PurchaseOrderScheduleLineBuilder {
+        private LocalDateTime scheduleLineDeliveryDate;
+
+        PurchaseOrderScheduleLineBuilder() {
+        }
+
+        @JsonDeserialize(using = com.sap.cloud.sdk.s4hana.datamodel.odata.adapter.JacksonLocalDateTimeDeserializer.class)
+        @JsonProperty("ScheduleLineDeliveryDate")
+        public PurchaseOrderScheduleLineBuilder scheduleLineDeliveryDate(LocalDateTime scheduleLineDeliveryDate) {
+            this.scheduleLineDeliveryDate = scheduleLineDeliveryDate;
+            return this;
+        }
+
+        public PurchaseOrderScheduleLine build() {
+            return new PurchaseOrderScheduleLine(this.scheduleLineDeliveryDate);
+        }
+
+        public String toString() {
+            return "PurchaseOrderScheduleLine.PurchaseOrderScheduleLineBuilder(scheduleLineDeliveryDate=" + this.scheduleLineDeliveryDate + ")";
+        }
     }
 
 }

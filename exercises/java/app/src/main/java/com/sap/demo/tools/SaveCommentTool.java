@@ -5,18 +5,13 @@ import com.sap.demo.Application.UiHandler;
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderItem;
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderItemNote;
 import com.sap.generated.services.DefaultPurchaseOrderService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 
 /** Tool to save a PurchaseOrderItemNote. */
-@RequiredArgsConstructor
-@Slf4j
-public class SaveCommentTool {
+public record SaveCommentTool(UiHandler ui) {
 
   static final String PURCHASE_ORDER_URL = "http://localhost:8080/sap/opu/odata/sap";
-  private final UiHandler ui;
 
   /**
    * Request class for the SaveNoteTool
@@ -39,8 +34,8 @@ public class SaveCommentTool {
             .build();
     service.createPurchaseOrderItemNote(pOINote).executeRequest(dest);
 
-    log.debug(
-        "Note saved successfully: Item[{} - {}], Note{}%n",
+    System.out.printf(
+        "Note saved successfully: Item[%s - %s], Note%s%n",
         request.purchaseOrderItem().getPurchaseOrder(),
         request.purchaseOrderItem().getPurchaseOrderItem(),
         request.comment());

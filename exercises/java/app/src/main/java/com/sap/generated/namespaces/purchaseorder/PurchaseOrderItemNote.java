@@ -16,12 +16,6 @@ import com.sap.cloud.sdk.typeconverter.TypeConverter;
 import com.sap.generated.namespaces.purchaseorder.field.PurchaseOrderItemNoteField;
 import com.sap.generated.namespaces.purchaseorder.selectable.PurchaseOrderItemNoteSelectable;
 import com.sap.generated.services.PurchaseOrderService;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,12 +26,6 @@ import java.util.Map;
  * Item Notes<p></p><p>Original entity name from the Odata EDM: <b>A_PurchaseOrderItemNoteType</b></p>
  * 
  */
-@Builder
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(doNotUseGetters = true, callSuper = true)
-@EqualsAndHashCode(doNotUseGetters = true, callSuper = true)
 @JsonAdapter(com.sap.cloud.sdk.s4hana.datamodel.odata.adapter.ODataVdmEntityAdapterFactory.class)
 public class PurchaseOrderItemNote
     extends VdmEntity<PurchaseOrderItemNote>
@@ -98,6 +86,19 @@ public class PurchaseOrderItemNote
      * 
      */
     public final static PurchaseOrderItemNoteField<String> PLAIN_LONG_TEXT = new PurchaseOrderItemNoteField<String>("PlainLongText");
+
+    public PurchaseOrderItemNote(@Nullable String purchaseOrder, @Nullable String purchaseOrderItem, @Nullable String plainLongText) {
+        this.purchaseOrder = purchaseOrder;
+        this.purchaseOrderItem = purchaseOrderItem;
+        this.plainLongText = plainLongText;
+    }
+
+    public PurchaseOrderItemNote() {
+    }
+
+    public static PurchaseOrderItemNoteBuilder builder() {
+        return new PurchaseOrderItemNoteBuilder();
+    }
 
     @Nonnull
     @Override
@@ -276,4 +277,94 @@ public class PurchaseOrderItemNote
         return (PurchaseOrderService.DEFAULT_SERVICE_PATH);
     }
 
+    @Nullable
+    public String getPurchaseOrder() {
+        return this.purchaseOrder;
+    }
+
+    @Nullable
+    public String getPurchaseOrderItem() {
+        return this.purchaseOrderItem;
+    }
+
+    @Nullable
+    public String getPlainLongText() {
+        return this.plainLongText;
+    }
+
+    public boolean equals(final Object o) {
+        if (o == this) return true;
+        if (!(o instanceof PurchaseOrderItemNote)) return false;
+        final PurchaseOrderItemNote other = (PurchaseOrderItemNote) o;
+        if (!other.canEqual((Object) this)) return false;
+        if (!super.equals(o)) return false;
+        final Object this$purchaseOrder = this.purchaseOrder;
+        final Object other$purchaseOrder = other.purchaseOrder;
+        if (this$purchaseOrder == null ? other$purchaseOrder != null : !this$purchaseOrder.equals(other$purchaseOrder))
+            return false;
+        final Object this$purchaseOrderItem = this.purchaseOrderItem;
+        final Object other$purchaseOrderItem = other.purchaseOrderItem;
+        if (this$purchaseOrderItem == null ? other$purchaseOrderItem != null : !this$purchaseOrderItem.equals(other$purchaseOrderItem))
+            return false;
+        final Object this$plainLongText = this.plainLongText;
+        final Object other$plainLongText = other.plainLongText;
+        if (this$plainLongText == null ? other$plainLongText != null : !this$plainLongText.equals(other$plainLongText))
+            return false;
+        return true;
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof PurchaseOrderItemNote;
+    }
+
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = super.hashCode();
+        final Object $purchaseOrder = this.purchaseOrder;
+        result = result * PRIME + ($purchaseOrder == null ? 43 : $purchaseOrder.hashCode());
+        final Object $purchaseOrderItem = this.purchaseOrderItem;
+        result = result * PRIME + ($purchaseOrderItem == null ? 43 : $purchaseOrderItem.hashCode());
+        final Object $plainLongText = this.plainLongText;
+        result = result * PRIME + ($plainLongText == null ? 43 : $plainLongText.hashCode());
+        return result;
+    }
+
+    public String toString() {
+        return "PurchaseOrderItemNote(super=" + super.toString() + ", purchaseOrder=" + this.purchaseOrder + ", purchaseOrderItem=" + this.purchaseOrderItem + ", plainLongText=" + this.plainLongText + ")";
+    }
+
+    public static class PurchaseOrderItemNoteBuilder {
+        private String purchaseOrder;
+        private String purchaseOrderItem;
+        private String plainLongText;
+
+        PurchaseOrderItemNoteBuilder() {
+        }
+
+        @JsonProperty("PurchaseOrder")
+        public PurchaseOrderItemNoteBuilder purchaseOrder(String purchaseOrder) {
+            this.purchaseOrder = purchaseOrder;
+            return this;
+        }
+
+        @JsonProperty("PurchaseOrderItem")
+        public PurchaseOrderItemNoteBuilder purchaseOrderItem(String purchaseOrderItem) {
+            this.purchaseOrderItem = purchaseOrderItem;
+            return this;
+        }
+
+        @JsonProperty("PlainLongText")
+        public PurchaseOrderItemNoteBuilder plainLongText(String plainLongText) {
+            this.plainLongText = plainLongText;
+            return this;
+        }
+
+        public PurchaseOrderItemNote build() {
+            return new PurchaseOrderItemNote(this.purchaseOrder, this.purchaseOrderItem, this.plainLongText);
+        }
+
+        public String toString() {
+            return "PurchaseOrderItemNote.PurchaseOrderItemNoteBuilder(purchaseOrder=" + this.purchaseOrder + ", purchaseOrderItem=" + this.purchaseOrderItem + ", plainLongText=" + this.plainLongText + ")";
+        }
+    }
 }

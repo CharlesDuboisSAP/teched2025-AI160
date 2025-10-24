@@ -20,15 +20,6 @@ import com.sap.generated.namespaces.purchaseorder.link.PurchaseOrderItemLink;
 import com.sap.generated.namespaces.purchaseorder.selectable.PurchaseOrderItemSelectable;
 import com.sap.generated.services.PurchaseOrderService;
 import io.vavr.control.Option;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,12 +32,6 @@ import java.util.Map;
  * Item<p></p><p>Original entity name from the Odata EDM: <b>A_PurchaseOrderItemType</b></p>
  * 
  */
-@Builder
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(doNotUseGetters = true, callSuper = true)
-@EqualsAndHashCode(doNotUseGetters = true, callSuper = true)
 @JsonAdapter(com.sap.cloud.sdk.s4hana.datamodel.odata.adapter.ODataVdmEntityAdapterFactory.class)
 public class PurchaseOrderItem
     extends VdmEntity<PurchaseOrderItem>
@@ -162,8 +147,6 @@ public class PurchaseOrderItem
     @SerializedName("to_PurchaseOrderItemNote")
     @JsonProperty("to_PurchaseOrderItemNote")
     @ODataField(odataName = "to_PurchaseOrderItemNote")
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     private List<PurchaseOrderItemNote> toPurchaseOrderItemNote;
     /**
      * Navigation property <b>to_ScheduleLine</b> for <b>PurchaseOrderItem</b> to multiple <b>PurchaseOrderScheduleLine</b>.
@@ -172,8 +155,6 @@ public class PurchaseOrderItem
     @SerializedName("to_ScheduleLine")
     @JsonProperty("to_ScheduleLine")
     @ODataField(odataName = "to_ScheduleLine")
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     private List<PurchaseOrderScheduleLine> toScheduleLine;
     /**
      * Use with available fluent helpers to apply the <b>to_PurchaseOrderItemNote</b> navigation property to query operations.
@@ -185,6 +166,24 @@ public class PurchaseOrderItem
      * 
      */
     public final static PurchaseOrderItemLink<PurchaseOrderScheduleLine> TO_SCHEDULE_LINE = new PurchaseOrderItemLink<PurchaseOrderScheduleLine>("to_ScheduleLine");
+
+    public PurchaseOrderItem(@Nullable String purchaseOrder, @Nullable String purchaseOrderItem, @Nullable String purchaseOrderItemText, @Nullable String plant, @Nullable BigDecimal orderQuantity, @Nullable String deliveryAddressCityName, List<PurchaseOrderItemNote> toPurchaseOrderItemNote, List<PurchaseOrderScheduleLine> toScheduleLine) {
+        this.purchaseOrder = purchaseOrder;
+        this.purchaseOrderItem = purchaseOrderItem;
+        this.purchaseOrderItemText = purchaseOrderItemText;
+        this.plant = plant;
+        this.orderQuantity = orderQuantity;
+        this.deliveryAddressCityName = deliveryAddressCityName;
+        this.toPurchaseOrderItemNote = toPurchaseOrderItemNote;
+        this.toScheduleLine = toScheduleLine;
+    }
+
+    public PurchaseOrderItem() {
+    }
+
+    public static PurchaseOrderItemBuilder builder() {
+        return new PurchaseOrderItemBuilder();
+    }
 
     @Nonnull
     @Override
@@ -658,6 +657,107 @@ public class PurchaseOrderItem
         toScheduleLine.addAll(Lists.newArrayList(entity));
     }
 
+    @Nullable
+    public String getPurchaseOrder() {
+        return this.purchaseOrder;
+    }
+
+    @Nullable
+    public String getPurchaseOrderItem() {
+        return this.purchaseOrderItem;
+    }
+
+    @Nullable
+    public String getPurchaseOrderItemText() {
+        return this.purchaseOrderItemText;
+    }
+
+    @Nullable
+    public String getPlant() {
+        return this.plant;
+    }
+
+    @Nullable
+    public BigDecimal getOrderQuantity() {
+        return this.orderQuantity;
+    }
+
+    @Nullable
+    public String getDeliveryAddressCityName() {
+        return this.deliveryAddressCityName;
+    }
+
+    public boolean equals(final Object o) {
+        if (o == this) return true;
+        if (!(o instanceof PurchaseOrderItem)) return false;
+        final PurchaseOrderItem other = (PurchaseOrderItem) o;
+        if (!other.canEqual((Object) this)) return false;
+        if (!super.equals(o)) return false;
+        final Object this$purchaseOrder = this.purchaseOrder;
+        final Object other$purchaseOrder = other.purchaseOrder;
+        if (this$purchaseOrder == null ? other$purchaseOrder != null : !this$purchaseOrder.equals(other$purchaseOrder))
+            return false;
+        final Object this$purchaseOrderItem = this.purchaseOrderItem;
+        final Object other$purchaseOrderItem = other.purchaseOrderItem;
+        if (this$purchaseOrderItem == null ? other$purchaseOrderItem != null : !this$purchaseOrderItem.equals(other$purchaseOrderItem))
+            return false;
+        final Object this$purchaseOrderItemText = this.purchaseOrderItemText;
+        final Object other$purchaseOrderItemText = other.purchaseOrderItemText;
+        if (this$purchaseOrderItemText == null ? other$purchaseOrderItemText != null : !this$purchaseOrderItemText.equals(other$purchaseOrderItemText))
+            return false;
+        final Object this$plant = this.plant;
+        final Object other$plant = other.plant;
+        if (this$plant == null ? other$plant != null : !this$plant.equals(other$plant))
+            return false;
+        final Object this$orderQuantity = this.orderQuantity;
+        final Object other$orderQuantity = other.orderQuantity;
+        if (this$orderQuantity == null ? other$orderQuantity != null : !this$orderQuantity.equals(other$orderQuantity))
+            return false;
+        final Object this$deliveryAddressCityName = this.deliveryAddressCityName;
+        final Object other$deliveryAddressCityName = other.deliveryAddressCityName;
+        if (this$deliveryAddressCityName == null ? other$deliveryAddressCityName != null : !this$deliveryAddressCityName.equals(other$deliveryAddressCityName))
+            return false;
+        final Object this$toPurchaseOrderItemNote = this.toPurchaseOrderItemNote;
+        final Object other$toPurchaseOrderItemNote = other.toPurchaseOrderItemNote;
+        if (this$toPurchaseOrderItemNote == null ? other$toPurchaseOrderItemNote != null : !this$toPurchaseOrderItemNote.equals(other$toPurchaseOrderItemNote))
+            return false;
+        final Object this$toScheduleLine = this.toScheduleLine;
+        final Object other$toScheduleLine = other.toScheduleLine;
+        if (this$toScheduleLine == null ? other$toScheduleLine != null : !this$toScheduleLine.equals(other$toScheduleLine))
+            return false;
+        return true;
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof PurchaseOrderItem;
+    }
+
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = super.hashCode();
+        final Object $purchaseOrder = this.purchaseOrder;
+        result = result * PRIME + ($purchaseOrder == null ? 43 : $purchaseOrder.hashCode());
+        final Object $purchaseOrderItem = this.purchaseOrderItem;
+        result = result * PRIME + ($purchaseOrderItem == null ? 43 : $purchaseOrderItem.hashCode());
+        final Object $purchaseOrderItemText = this.purchaseOrderItemText;
+        result = result * PRIME + ($purchaseOrderItemText == null ? 43 : $purchaseOrderItemText.hashCode());
+        final Object $plant = this.plant;
+        result = result * PRIME + ($plant == null ? 43 : $plant.hashCode());
+        final Object $orderQuantity = this.orderQuantity;
+        result = result * PRIME + ($orderQuantity == null ? 43 : $orderQuantity.hashCode());
+        final Object $deliveryAddressCityName = this.deliveryAddressCityName;
+        result = result * PRIME + ($deliveryAddressCityName == null ? 43 : $deliveryAddressCityName.hashCode());
+        final Object $toPurchaseOrderItemNote = this.toPurchaseOrderItemNote;
+        result = result * PRIME + ($toPurchaseOrderItemNote == null ? 43 : $toPurchaseOrderItemNote.hashCode());
+        final Object $toScheduleLine = this.toScheduleLine;
+        result = result * PRIME + ($toScheduleLine == null ? 43 : $toScheduleLine.hashCode());
+        return result;
+    }
+
+    public String toString() {
+        return "PurchaseOrderItem(super=" + super.toString() + ", purchaseOrder=" + this.purchaseOrder + ", purchaseOrderItem=" + this.purchaseOrderItem + ", purchaseOrderItemText=" + this.purchaseOrderItemText + ", plant=" + this.plant + ", orderQuantity=" + this.orderQuantity + ", deliveryAddressCityName=" + this.deliveryAddressCityName + ", toPurchaseOrderItemNote=" + this.toPurchaseOrderItemNote + ", toScheduleLine=" + this.toScheduleLine + ")";
+    }
+
 
     /**
      * Helper class to allow for fluent creation of PurchaseOrderItem instances.
@@ -667,6 +767,15 @@ public class PurchaseOrderItem
 
         private List<PurchaseOrderItemNote> toPurchaseOrderItemNote = Lists.newArrayList();
         private List<PurchaseOrderScheduleLine> toScheduleLine = Lists.newArrayList();
+        private String purchaseOrder;
+        private String purchaseOrderItem;
+        private String purchaseOrderItemText;
+        private String plant;
+        private BigDecimal orderQuantity;
+        private String deliveryAddressCityName;
+
+        PurchaseOrderItemBuilder() {
+        }
 
         /**
          * (Key Field) Constraints: Not nullable, Maximum length: 10 <p>Original property name from the Odata EDM: <b>PurchaseOrder</b></p>
@@ -700,6 +809,49 @@ public class PurchaseOrderItem
             return toScheduleLine(Lists.newArrayList(cloudSdkValue));
         }
 
+        @JsonProperty("PurchaseOrderItem")
+        public PurchaseOrderItemBuilder purchaseOrderItem(String purchaseOrderItem) {
+            this.purchaseOrderItem = purchaseOrderItem;
+            return this;
+        }
+
+        @JsonProperty("PurchaseOrderItemText")
+        public PurchaseOrderItemBuilder purchaseOrderItemText(String purchaseOrderItemText) {
+            this.purchaseOrderItemText = purchaseOrderItemText;
+            return this;
+        }
+
+        @JsonProperty("Plant")
+        public PurchaseOrderItemBuilder plant(String plant) {
+            this.plant = plant;
+            return this;
+        }
+
+        @JsonProperty("OrderQuantity")
+        public PurchaseOrderItemBuilder orderQuantity(BigDecimal orderQuantity) {
+            this.orderQuantity = orderQuantity;
+            return this;
+        }
+
+        @JsonProperty("DeliveryAddressCityName")
+        public PurchaseOrderItemBuilder deliveryAddressCityName(String deliveryAddressCityName) {
+            this.deliveryAddressCityName = deliveryAddressCityName;
+            return this;
+        }
+
+        @JsonProperty("to_PurchaseOrderItemNote")
+        public PurchaseOrderItemBuilder toPurchaseOrderItemNote(List<PurchaseOrderItemNote> toPurchaseOrderItemNote) {
+            this.toPurchaseOrderItemNote = toPurchaseOrderItemNote;
+            return this;
+        }
+
+        public PurchaseOrderItem build() {
+            return new PurchaseOrderItem(this.purchaseOrder, this.purchaseOrderItem, this.purchaseOrderItemText, this.plant, this.orderQuantity, this.deliveryAddressCityName, this.toPurchaseOrderItemNote, this.toScheduleLine);
+        }
+
+        public String toString() {
+            return "PurchaseOrderItem.PurchaseOrderItemBuilder(toPurchaseOrderItemNote=" + this.toPurchaseOrderItemNote + ", toScheduleLine=" + this.toScheduleLine + ", purchaseOrder=" + this.purchaseOrder + ", purchaseOrderItem=" + this.purchaseOrderItem + ", purchaseOrderItemText=" + this.purchaseOrderItemText + ", plant=" + this.plant + ", orderQuantity=" + this.orderQuantity + ", deliveryAddressCityName=" + this.deliveryAddressCityName + ")";
+        }
     }
 
 }

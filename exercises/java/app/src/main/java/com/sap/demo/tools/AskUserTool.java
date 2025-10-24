@@ -1,15 +1,12 @@
 package com.sap.demo.tools;
 
 import com.sap.demo.Application.UiHandler;
-import lombok.RequiredArgsConstructor;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 
-/** Tool to ask the user a briefQuestion through the UI. */
-@RequiredArgsConstructor
-public class AskUserTool {
 
-  private final UiHandler ui;
+/** Tool to ask the user a briefQuestion through the UI. */
+public record AskUserTool( UiHandler ui) {
 
   /**
    * Request class for the AskUserTool

@@ -12,23 +12,22 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 
 @Service
-@Slf4j
-@RequiredArgsConstructor
 public class PurchaseOrderMonitoringService implements UiHandler {
 
-  private final GetPurchaseOrdersTask purchaseOrderTool;
-
   private final AtomicBoolean readPurchaseOrders = new AtomicBoolean(false);
-  private String prompt = "";
   private final List<PurchaseOrdersView> subscribers = new ArrayList<>();
+  private String prompt = "";
+
+  @Autowired
+  private GetPurchaseOrdersTask purchaseOrderTool;
 
   public void addSubscriber(PurchaseOrdersView subscriber) {
     subscribers.add(subscriber);
@@ -58,7 +57,6 @@ public class PurchaseOrderMonitoringService implements UiHandler {
     }
 
     List<PurchaseOrderItem> items = purchaseOrderTool.getPurchaseOrderItems(prompt, this);
-    log.trace("Got {} purchase order items, sending to {} subscribers", items.size(), subscribers.size());
 
     for (PurchaseOrdersView subscriber : new ArrayList<>(subscribers)) {
       try {

@@ -5,12 +5,10 @@ import com.sap.cloud.sdk.cloudplatform.connectivity.Destination;
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderItem;
 import com.sap.generated.services.DefaultPurchaseOrderService;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.springframework.ai.tool.annotation.Tool;
 
 /** Utility class for reading purchase orders. */
-@RequiredArgsConstructor
-public class ReadPurchaseOrdersTool {
+public record ReadPurchaseOrdersTool() {
   // URL of the OData service for accessing purchase orders
   static final String PURCHASE_ORDER_URL = "http://localhost:8080/sap/opu/odata/sap";
 

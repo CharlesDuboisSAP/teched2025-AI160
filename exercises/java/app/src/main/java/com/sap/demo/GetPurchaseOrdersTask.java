@@ -8,8 +8,6 @@ import com.sap.demo.Application.UiHandler;
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderItem;
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -20,8 +18,6 @@ import org.springframework.stereotype.Component;
 import static com.sap.ai.sdk.orchestration.OrchestrationAiModel.CLAUDE_4_SONNET;
 
 @Component
-@RequiredArgsConstructor
-@Slf4j
 public class GetPurchaseOrdersTask {
   private static final String SYSTEM_MESSAGE =
       """

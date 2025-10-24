@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import jakarta.annotation.PostConstruct;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +26,6 @@ import static java.util.stream.Collectors.toMap;
  */
 @RestController
 @RequestMapping("sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/")
-@Slf4j
 public class PurchaseOrderMock {
 
   @Autowired

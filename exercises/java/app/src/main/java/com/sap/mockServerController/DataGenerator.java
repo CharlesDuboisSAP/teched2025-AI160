@@ -2,7 +2,6 @@ package com.sap.mockServerController;
 
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderItem;
 import com.sap.generated.namespaces.purchaseorder.PurchaseOrderScheduleLine;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ class DataGenerator {
   @Value("${app.data.generate-items:40}")
   private int numberOfItems;
 
-  private List<String> cities =
+  private static final List<String> cities =
       List.of(
           "Berlin",
           "Leipzig",
@@ -34,7 +33,7 @@ class DataGenerator {
           "Stuttgart",
           "Düsseldorf",
           "Rostock");
-  private List<String> items =
+  private static final List<String> items =
       List.of(
           "pencil",
           "eraser",
@@ -44,7 +43,7 @@ class DataGenerator {
           "scissors",
           "mug",
           "charging cable");
-  private List<String> adjectives =
+  private static final List<String> adjectives =
       List.of(
           "fancy",
           "fabulous",
@@ -56,7 +55,7 @@ class DataGenerator {
           "elegant",
           "graceful",
           "magnificent");
-  private List<String> companies =
+  private static final List<String> companies =
       List.of(
           "TechNova Inc.",
           "BlueOrbit Solutions",
@@ -75,10 +74,7 @@ class DataGenerator {
         .toList();
   }
 
-  @RequiredArgsConstructor
-  private class PurchaseOrderGenerator implements Supplier<PurchaseOrderItem> {
-    private final Random r;
-
+  private record PurchaseOrderGenerator(Random r) implements Supplier<PurchaseOrderItem> {
     @Override
     public PurchaseOrderItem get() {
       String po = generatePO();
