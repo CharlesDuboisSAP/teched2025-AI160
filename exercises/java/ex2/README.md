@@ -30,7 +30,7 @@ Feel free to experiment with the system message once you completed all the exerc
 The user query only needs to describe the actual task, for example as follows:
 ```java
 String userQuery = "Please escalate for the following purchaseOrderItem %s, send email and save a note"
-            .formatted(selectedPurchaseOrderItem.toString());
+            .formatted(item.toString());
 ```
 
 ## Step 2: Create the necessary tool instances
@@ -52,9 +52,9 @@ The tools provided to the AI agent are the following.
 
 In order to instantiate these tools, we can use the following code.
 ```java
-AskUserTool askUserTool = new AskUserTool(monitoringService);
-MailTool mailTool = new MailTool(monitoringService);
-SaveCommentTool saveCommentTool = new SaveCommentTool(monitoringService);
+AskUserTool askUserTool = new AskUserTool(ui);
+MailTool mailTool = new MailTool(ui);
+SaveCommentTool saveCommentTool = new SaveCommentTool(ui);
 DateTimeTool dateTimeTool = new DateTimeTool();
 ```
 
@@ -74,11 +74,7 @@ EscalationOutcome result = chatClient
 2. Add the `OrchestrationChatOptions` object and the tools as described above.
 ```java
     .options(options)
-    .tools(
-      askUserTool,
-      mailTool,
-      saveCommentTool,
-      dateTimeTool)
+    .tools(askUserTool, mailTool, saveCommentTool, dateTimeTool)
 ```
 3. Call the LLM and specify the return format.
 ```java
@@ -107,26 +103,24 @@ public EscalationOutcome resolveEscalation(
     // --------------------------------------------------------------------------------------------
     // YOUR CODE START
 
-    String userQuery = "Please escalate for the following purchaseOrderItem %s, send email and save a note"
-        .formatted(selectedPurchaseOrderItem.toString());
+    String userQuery =
+      "Please escalate for the following purchaseOrderItem %s, send email and save a note"
+          .formatted(item.toString());
     
-    AskUserTool askUserTool = new AskUserTool(monitoringService);
-    MailTool mailTool = new MailTool(monitoringService);
-    SaveCommentTool saveCommentTool = new SaveCommentTool(monitoringService);
+    AskUserTool askUserTool = new AskUserTool(ui);
+    MailTool mailTool = new MailTool(ui);
+    SaveCommentTool saveCommentTool = new SaveCommentTool(ui);
     DateTimeTool dateTimeTool = new DateTimeTool();
-
-    EscalationOutcome result = chatClient
-        .prompt()
-        .system(SYSTEM_MESSAGE)
-        .user(userQuery)
-        .options(options)
-        .tools(
-            askUserTool,
-            mailTool,
-            saveCommentTool,
-            dateTimeTool)
-        .call()
-        .entity(EscalationOutcome.class);
+    
+    EscalationOutcome result =
+      chatClient
+          .prompt()
+          .system(SYSTEM_MESSAGE)
+          .user(userQuery)
+          .options(options)
+          .tools(askUserTool, mailTool, saveCommentTool, dateTimeTool)
+          .call()
+          .entity(EscalationOutcome.class);
 
     // YOUR CODE END
     // ---------------------------------------- EXERCISE 2 ----------------------------------------
