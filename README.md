@@ -65,6 +65,13 @@ The agent intelligently routes through specialized tools — fetching PO data, c
 
 ![alt text](image.png)
 
+### Related SDKs & Resources
+This tutorial is built using the SAP Cloud SDK for AI.
+If you’d like to learn more or integrate it into your own projects, check out the following resources:
+- 📚 SDK Documentation Portal: https://sap.github.io/ai-sdk/
+- 🚀 JavaScript SDK GitHub Repository: https://github.com/SAP/ai-sdk-js
+- ☕️ Java SDK GitHub Repository: https://github.com/SAP/ai-sdk-java
+
 ## Contributing
 Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) to understand the contribution guidelines.
 
