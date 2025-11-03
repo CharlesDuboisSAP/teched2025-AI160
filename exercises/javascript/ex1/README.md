@@ -249,7 +249,7 @@ The terminal logs will show how the agent follows its system prompt instructions
 Try these queries to see how the agent interprets its prompt and uses tools:
 
 - `What PO items are overdue in Berlin?`
-- `Show me overdue items being delivered to Germany`
+- `Show me overdue items being delivered to Munich`
 
 In each of these calls, the AI agent will filter the PO items after it received all items from the S/4 system.
 
