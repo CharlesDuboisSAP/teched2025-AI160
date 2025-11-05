@@ -81,7 +81,7 @@ In the same intialization step of the `OrchestrationClient`, add the following `
 const model = new OrchestrationClient({
     promptTemplating: {
         model: {
-            name: 'gpt-5'
+            name: 'gpt-4.1'
         }
     },
     masking: {
