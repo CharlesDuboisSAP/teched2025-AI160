@@ -68,10 +68,13 @@ function App() {
 
     try {
       const prompt = userInput.trim();
-      const apiPromise = fetch(`/api/agent/trigger-agent?prompt=${encodeURIComponent(prompt)}`, {
+      const apiPromise = fetch('/api/agent/trigger-agent', {
+        method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           'x-thread-id': newThreadId
-        }
+        },
+        body: JSON.stringify({ prompt })
       })
       
       const getRandomDuration = () => Math.floor(Math.random() * 1000) + 2500
@@ -358,10 +361,11 @@ function App() {
 
       {/* Email/Note Popup Modal */}
       {showEmailPopup && selectedOrder && (() => {
-        const orderKey = `${selectedOrder.PurchaseOrder}-${selectedOrder.PurchaseOrderItem}`;
-        const hasSentEmail = sentEmails.has(orderKey);
-        const sentContent = sentEmailContent.get(orderKey);
-        const isReadOnly = selectedOrder.ExistingNote || hasSentEmail;
+  const orderKey = `${selectedOrder.PurchaseOrder}-${selectedOrder.PurchaseOrderItem}`;
+  const hasSentEmail = sentEmails.has(orderKey);
+  const sentContent = sentEmailContent.get(orderKey);
+  // Ensure boolean for read-only state (ExistingNote may be a string)
+  const isReadOnly = Boolean(selectedOrder.ExistingNote) || hasSentEmail;
         
         return (
           <div className="modal-overlay" onClick={handleCloseEmailPopup}>
@@ -389,7 +393,7 @@ function App() {
                   </label>
                   <textarea
                     id="email-content"
-                    value={selectedOrder.ExistingNote || sentContent || editableEmail}
+                    value={(selectedOrder.ExistingNote || sentContent || editableEmail) || ''}
                     onChange={!isReadOnly ? (e) => setEditableEmail(e.target.value) : undefined}
                     rows={15}
                     className="email-textarea"

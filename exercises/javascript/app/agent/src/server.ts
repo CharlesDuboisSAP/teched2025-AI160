@@ -19,7 +19,7 @@ app.use(function(req: any, res: any, next: any): void {
 });
 
 // Analyze purchase orders endpoint
-router.get('/trigger-agent', async (req, res) => {
+router.post('/trigger-agent', async (req, res) => {
     try {
         if (typeof req.headers['x-thread-id'] !== 'string' || !req.headers['x-thread-id']) {
             throw new Error('x-thread-id header is required and must be a string');
@@ -28,12 +28,15 @@ router.get('/trigger-agent', async (req, res) => {
         const config = { configurable: { thread_id } };
         logger.debug('thread_id:', thread_id);
 
-        const prompt = (req.query.prompt as string) ?? 'Consider all purchase order items';
-        
+        const rawPrompt = req.body && typeof req.body.prompt === 'string' ? req.body.prompt : '';
+        const prompt = rawPrompt && rawPrompt.trim().length > 0
+            ? rawPrompt
+            : 'Consider all purchase order items';
+
         const result = await startPurchaseOrderAgent(prompt, config);
 
         const purchaseOrders = result ? JSON.parse(result.toString()).data : null;
-        
+
         res.json({
             success: true,
             prompt,
@@ -42,8 +45,13 @@ router.get('/trigger-agent', async (req, res) => {
         });
         
     } catch (error: any) {
-        logger.error(`Error in analyze endpoint: ${error.message}`);
-        res.status(error.cause.response.status).json(error.cause.response.data);
+        logger.error(`Error in analyze endpoint: ${error?.message ?? error}`);
+        // If the error has an HTTP response (for example from an SDK call), return that.
+        if (error?.cause?.response) {
+            res.status(error.cause.response.status).json(error.cause.response.data);
+        } else {
+            res.status(500).json({ error: 'Agent analysis failed', message: error?.message ?? String(error) });
+        }
     }
 });
 
