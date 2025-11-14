@@ -1,0 +1,29 @@
+applications:
+  - name: overdue-po-agent
+    path: ./agent
+    memory: 256M
+    buildpacks:
+      - nodejs_buildpack
+    services:
+      - default_aicore
+      - default_xsuaa
+    routes:
+      - route: 'overdue-po-agent.cfapps.eu12-001.hana.ondemand.com'
+    env:
+      destinations: >
+        [
+          {
+            "name": "s4hana",
+            "url": "https://overdue-po-s4.cfapps.eu12-001.hana.ondemand.com"
+          }
+        ]
+  - name: overdue-po-s4
+    path: ./mock-server
+    memory: 256M
+    buildpacks:
+      - nodejs_buildpack
+    services:
+      - default_xsuaa
+    routes:
+      - route: 'overdue-po-s4.cfapps.eu12-001.hana.ondemand.com'
+  

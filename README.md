@@ -1,3 +1,7 @@
+Initially forked from https://github.com/SAP-samples/teched2025-AI160
+
+---
+
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/teched2025-AI160)](https://api.reuse.software/info/github.com/SAP-samples/teched2025-AI160)
 
 > [!CAUTION]
